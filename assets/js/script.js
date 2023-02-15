@@ -15,7 +15,7 @@ console.log(testArray);
 console.log(typeof testArray);
 console.log(testArray.at(1));
 
-var optionsArray = [testbox.options.array];
+var optionsArray = [testbox.options]
 
 console.log(optionsArray);
 console.log(typeof optionsArray);
