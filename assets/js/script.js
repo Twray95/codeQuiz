@@ -5,7 +5,9 @@ var option2El = document.querySelector("#option2");
 var option3El = document.querySelector("#option3");
 var option4El = document.querySelector("#option4");
 var answerBoxEl = document.querySelector(".answerBox");
+var currentTime = document.querySelector("#timer");
 var qPosition = 0;
+var timeRemain = 60;
 var questionSelector = [
   fillInQuestionCard1,
   fillInQuestionCard2,
@@ -157,6 +159,11 @@ function fillInQuestionCard8() {
   answer = question8.options.at(2);
 }
 
+var timerFun = setInterval(function () {
+  timeRemain--;
+  currentTime.textContent(timeRemain);
+}, 1000);
+
 answerBoxEl.addEventListener("click", function (event) {
   var element = event.target;
   if (element.classList.contains("answerOption")) {
@@ -174,6 +181,10 @@ answerBoxEl.addEventListener("click", function (event) {
 
 startBtn.addEventListener("click", function () {
   fillInQuestionCard1();
+  var timerFun = setInterval(function () {
+    timeRemain--;
+    currentTime.textContent(timeRemain);
+  }, 1000);
   //start timer to be added
 });
 

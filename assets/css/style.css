@@ -1,0 +1,29 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+
+.homePage {
+  text-align: center;
+  margin: 5px;
+}
+
+.homePage h1 {
+  padding-bottom: 10px;
+}
+
+.homePage p {
+  margin-bottom: 15px;
+}
+
+.questionCard {
+  text-align: center;
+  margin: 5px;
+  margin-top: 15px;
+}
