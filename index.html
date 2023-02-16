@@ -25,7 +25,7 @@
         </p>
         <button id="start">Star Quiz</button>
       </section>
-      <section class="questionCard" id="q1" data-state="hidden">
+      <section class="questionCard" id="q1">
         <div class="questions" id="questionActual"></div>
         <div class="answerBox">
           <div class="answerOption" id="option1"></div>
@@ -33,6 +33,15 @@
           <div class="answerOption" id="option3"></div>
           <div class="answerOption" id="option4"></div>
         </div>
+      </section>
+      <section id="form" class="hide">
+        <form action="">
+          <label for="initials">Initials Here:</label>
+          <input type="text" id="initials" name="initials" />
+          <input type="submit" value="Save High Score!" />
+        </form>
+      </section>
+      <section id="highScores" class="hide"></section>
     </main>
     <script src="./assets/js/script.js"></script>
   </body>

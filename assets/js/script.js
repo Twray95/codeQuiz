@@ -1,5 +1,7 @@
 var mainEl = document.querySelector(".main");
 var homePageEl = document.querySelector(".homePage");
+var questionCardEl = document.querySelector(".questionCard");
+var formEl = document.querySelector("#form");
 var startBtn = document.querySelector("#start");
 var questionEl = document.querySelector("#questionActual");
 var option1El = document.querySelector("#option1");
@@ -9,7 +11,7 @@ var option4El = document.querySelector("#option4");
 var answerBoxEl = document.querySelector(".answerBox");
 var currentTime = document.querySelector("#timer");
 var qPosition = 0;
-var timeRemain = 100;
+var timeRemain = 10;
 var questionSelector = [
   fillInQuestionCard1,
   fillInQuestionCard2,
@@ -163,8 +165,10 @@ function fillInQuestionCard8() {
 }
 
 function endQuiz() {
-  clearInterval();
   console.log(timeRemain);
+  // questionCardEl.textContent = "";
+  questionCardEl.classList.add("hide");
+  formEl.classList.remove("hide");
 }
 
 function removeTime() {
@@ -215,7 +219,10 @@ function startQuiz() {
   var timerFun = setInterval(function () {
     timeRemain--;
     currentTime.textContent = timeRemain;
-    console.log(timeRemain);
+    if (qPosition > 7) {
+      clearInterval(timerFun);
+      console.log(timeRemain);
+    }
     if (timeRemain <= 0) {
       clearInterval(timerFun);
       homePageEl.textContent = "GAME OVER!";
