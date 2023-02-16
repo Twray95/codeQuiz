@@ -1,3 +1,5 @@
+var mainEl = document.querySelector(".main");
+var homePageEl = document.querySelector(".homePage");
 var startBtn = document.querySelector("#start");
 var questionEl = document.querySelector("#questionActual");
 var option1El = document.querySelector("#option1");
@@ -7,7 +9,7 @@ var option4El = document.querySelector("#option4");
 var answerBoxEl = document.querySelector(".answerBox");
 var currentTime = document.querySelector("#timer");
 var qPosition = 0;
-var timeRemain = 60;
+var timeRemain = 100;
 var questionSelector = [
   fillInQuestionCard1,
   fillInQuestionCard2,
@@ -17,6 +19,7 @@ var questionSelector = [
   fillInQuestionCard6,
   fillInQuestionCard7,
   fillInQuestionCard8,
+  endQuiz,
 ];
 
 var question1 = {
@@ -159,10 +162,24 @@ function fillInQuestionCard8() {
   answer = question8.options.at(2);
 }
 
-var timerFun = setInterval(function () {
+function endQuiz() {
+  clearInterval();
+  console.log(timeRemain);
+}
+
+function removeTime() {
   timeRemain--;
-  currentTime.textContent(timeRemain);
-}, 1000);
+  timeRemain--;
+  timeRemain--;
+  timeRemain--;
+  timeRemain--;
+  currentTime.textContent = timeRemain;
+}
+
+// var timerFun = setInterval(function () {
+//   timeRemain--;
+//   currentTime.textContent(timeRemain);
+// }, 1000);
 
 answerBoxEl.addEventListener("click", function (event) {
   var element = event.target;
@@ -173,21 +190,43 @@ answerBoxEl.addEventListener("click", function (event) {
       questionSelector[qPosition]();
     } else {
       console.log("wrong");
+      removeTime();
       qPosition++;
       questionSelector[qPosition]();
     }
+  } else {
+    return;
   }
 });
 
-startBtn.addEventListener("click", function () {
-  fillInQuestionCard1();
-  var timerFun = setInterval(function () {
-    timeRemain--;
-    currentTime.textContent(timeRemain);
-  }, 1000);
-  //start timer to be added
-});
+startBtn.addEventListener("click", startQuiz);
+//start timer to be added
 
-// ARRAY OF FUNCTIONS!!!!
+// retryBtn.addEventListener("click", function () {
+//   timeRemain = 60;
+//   startQuiz();
+// });
 
 // fillInQuestionCard1();
+
+function startQuiz() {
+  fillInQuestionCard1();
+  homePageEl.textContent = "";
+  var timerFun = setInterval(function () {
+    timeRemain--;
+    currentTime.textContent = timeRemain;
+    console.log(timeRemain);
+    if (timeRemain <= 0) {
+      clearInterval(timerFun);
+      homePageEl.textContent = "GAME OVER!";
+      var retryBtn = document.createElement("button");
+      retryBtn.textContent = "Try Again!";
+      homePageEl.appendChild(retryBtn);
+      retryBtn.addEventListener("click", function () {
+        timeRemain = 60;
+        qPosition = 0;
+        startQuiz();
+      });
+    }
+  }, 1000);
+}
