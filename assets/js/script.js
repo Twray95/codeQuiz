@@ -5,7 +5,7 @@ var option2El = document.querySelector("#option2");
 var option3El = document.querySelector("#option3");
 var option4El = document.querySelector("#option4");
 var answerBoxEl = document.querySelector(".answerBox");
-var questionSelector = [question1, question2];
+var questionSelector = [fillInQuestionCard1, fillInQuestionCard2];
 
 var question1 = {
   question: "What bracket encloses function code?",
@@ -39,21 +39,23 @@ function fillInQuestionCard2() {
 
 answerBoxEl.addEventListener("click", function (event) {
   var element = event.target;
+  qPosition = 0;
+  console.log(qPosition);
   if (element.classList.contains("answerOption")) {
     if (element.textContent == answer) {
-      //add reduce timer and move to next question
       console.log("correct");
-      fillInQuestionCard2();
+      qPosition++;
+      questionSelector[qPosition]();
     } else {
-      //move to next answer
       console.log("wrong");
-      fillInQuestionCard2();
+      questionSelector[qPosition]();
     }
   }
 });
 
 startBtn.addEventListener("click", function () {
   fillInQuestionCard1();
+  //start timer to be added
 });
 
 // ARRAY OF FUNCTIONS!!!!
