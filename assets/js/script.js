@@ -5,7 +5,17 @@ var option2El = document.querySelector("#option2");
 var option3El = document.querySelector("#option3");
 var option4El = document.querySelector("#option4");
 var answerBoxEl = document.querySelector(".answerBox");
-var questionSelector = [fillInQuestionCard1, fillInQuestionCard2];
+var qPosition = 0;
+var questionSelector = [
+  fillInQuestionCard1,
+  fillInQuestionCard2,
+  fillInQuestionCard3,
+  fillInQuestionCard4,
+  fillInQuestionCard5,
+  fillInQuestionCard6,
+  fillInQuestionCard7,
+  fillInQuestionCard8,
+];
 
 var question1 = {
   question: "What bracket encloses function code?",
@@ -14,9 +24,65 @@ var question1 = {
 };
 
 var question2 = {
-  question: "will this work?",
-  options: ["yes", "no", "maybe", "try again"],
-  answer: "yes",
+  question: "Inside which HTML element do you put the JavaScript link?",
+  options: ["<scripting>", "<js>", "<javascript>", "<script>"],
+  answer: "<script>",
+};
+
+var question3 = {
+  question: "What is the correct place to insert a JavaScript?",
+  options: [
+    "The <head> element",
+    "The <body> element",
+    "Both the <head> and the <body>",
+    "Neither",
+  ],
+  answer: "The <body> element",
+};
+
+var question4 = {
+  question: "How would you write 'Hello World' in an alert box?",
+  options: [
+    "msg('Hello World');",
+    "alert('Hello World');",
+    "alertBox('Hello World');",
+    "msgBox('Hello World');",
+  ],
+  answer: "alert('Hello World');",
+};
+
+var question5 = {
+  question: "How do you create a function in JavaScript?",
+  options: [
+    "function myFunction()",
+    "function:myFunction()",
+    "function = myFunction()",
+    "None of the above",
+  ],
+  answer: "function myFunction()",
+};
+
+var question6 = {
+  question: "How do you call a function named 'myFunction'?",
+  options: [
+    "myFunction()",
+    "call function myFunction()",
+    "call myFunction()",
+    "None of the above",
+  ],
+  answer: "myFunction()",
+};
+
+var question7 = {
+  question: "Commonly used data types DO NOT include:",
+  options: ["Strings", "Booleans", "Alerts", "Numbers"],
+  answer: "Alerts",
+};
+
+var question8 = {
+  question: "The condition in an if/else statement is enclosed with ______.",
+  options: ["quotes", "curly brackets", "parens", "square brackets"],
+  answer: "parens",
 };
 
 function fillInQuestionCard1() {
@@ -34,13 +100,65 @@ function fillInQuestionCard2() {
   option2El.textContent = question2.options.at(1);
   option3El.textContent = question2.options.at(2);
   option4El.textContent = question2.options.at(3);
-  answer = question2.options.at(0);
+  answer = question2.options.at(3);
+}
+
+function fillInQuestionCard3() {
+  questionEl.textContent = question3.question;
+  option1El.textContent = question3.options.at(0);
+  option2El.textContent = question3.options.at(1);
+  option3El.textContent = question3.options.at(2);
+  option4El.textContent = question3.options.at(3);
+  answer = question3.options.at(1);
+}
+
+function fillInQuestionCard4() {
+  questionEl.textContent = question4.question;
+  option1El.textContent = question4.options.at(0);
+  option2El.textContent = question4.options.at(1);
+  option3El.textContent = question4.options.at(2);
+  option4El.textContent = question4.options.at(3);
+  answer = question4.options.at(1);
+}
+
+function fillInQuestionCard5() {
+  questionEl.textContent = question5.question;
+  option1El.textContent = question5.options.at(0);
+  option2El.textContent = question5.options.at(1);
+  option3El.textContent = question5.options.at(2);
+  option4El.textContent = question5.options.at(3);
+  answer = question5.options.at(0);
+}
+
+function fillInQuestionCard6() {
+  questionEl.textContent = question6.question;
+  option1El.textContent = question6.options.at(0);
+  option2El.textContent = question6.options.at(1);
+  option3El.textContent = question6.options.at(2);
+  option4El.textContent = question6.options.at(3);
+  answer = question6.options.at(1);
+}
+
+function fillInQuestionCard7() {
+  questionEl.textContent = question7.question;
+  option1El.textContent = question7.options.at(0);
+  option2El.textContent = question7.options.at(1);
+  option3El.textContent = question7.options.at(2);
+  option4El.textContent = question7.options.at(3);
+  answer = question7.options.at(2);
+}
+
+function fillInQuestionCard8() {
+  questionEl.textContent = question8.question;
+  option1El.textContent = question8.options.at(0);
+  option2El.textContent = question8.options.at(1);
+  option3El.textContent = question8.options.at(2);
+  option4El.textContent = question8.options.at(3);
+  answer = question8.options.at(2);
 }
 
 answerBoxEl.addEventListener("click", function (event) {
   var element = event.target;
-  qPosition = 0;
-  console.log(qPosition);
   if (element.classList.contains("answerOption")) {
     if (element.textContent == answer) {
       console.log("correct");
@@ -48,6 +166,7 @@ answerBoxEl.addEventListener("click", function (event) {
       questionSelector[qPosition]();
     } else {
       console.log("wrong");
+      qPosition++;
       questionSelector[qPosition]();
     }
   }
