@@ -2,7 +2,11 @@ var mainEl = document.querySelector(".main");
 var homePageEl = document.querySelector(".homePage");
 var questionCardEl = document.querySelector(".questionCard");
 var formEl = document.querySelector("#form");
+var initialsEl = document.querySelector("#initials");
+var scorePage = document.querySelector("#highScores");
 var startBtn = document.querySelector("#start");
+var submitBtnEl = document.querySelector("#submitBtn");
+var displayScore = document.querySelector("#leaderboard");
 var questionEl = document.querySelector("#questionActual");
 var option1El = document.querySelector("#option1");
 var option2El = document.querySelector("#option2");
@@ -11,7 +15,7 @@ var option4El = document.querySelector("#option4");
 var answerBoxEl = document.querySelector(".answerBox");
 var currentTime = document.querySelector("#timer");
 var qPosition = 0;
-var timeRemain = 10;
+var timeRemain = 100;
 var questionSelector = [
   fillInQuestionCard1,
   fillInQuestionCard2,
@@ -23,6 +27,7 @@ var questionSelector = [
   fillInQuestionCard8,
   endQuiz,
 ];
+var scoreArray = [];
 
 var question1 = {
   question: "What bracket encloses function code?",
@@ -164,9 +169,32 @@ function fillInQuestionCard8() {
   answer = question8.options.at(2);
 }
 
+function startQuiz() {
+  fillInQuestionCard1();
+  homePageEl.textContent = "";
+  var timerFun = setInterval(function () {
+    timeRemain--;
+    currentTime.textContent = timeRemain;
+    if (qPosition > 7) {
+      clearInterval(timerFun);
+      console.log(timeRemain);
+    }
+    if (timeRemain <= 0) {
+      clearInterval(timerFun);
+      homePageEl.textContent = "GAME OVER!";
+      var retryBtn = document.createElement("button");
+      retryBtn.textContent = "Try Again!";
+      homePageEl.appendChild(retryBtn);
+      retryBtn.addEventListener("click", function () {
+        timeRemain = 60;
+        qPosition = 0;
+        startQuiz();
+      });
+    }
+  }, 1000);
+}
+
 function endQuiz() {
-  console.log(timeRemain);
-  // questionCardEl.textContent = "";
   questionCardEl.classList.add("hide");
   formEl.classList.remove("hide");
 }
@@ -204,36 +232,44 @@ answerBoxEl.addEventListener("click", function (event) {
 });
 
 startBtn.addEventListener("click", startQuiz);
-//start timer to be added
 
-// retryBtn.addEventListener("click", function () {
-//   timeRemain = 60;
-//   startQuiz();
-// });
+submitBtnEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  var fname = initialsEl.value;
+  var score = timeRemain;
+  var highScore = {
+    Initials: fname,
+    Score: score,
+  };
+  scoreArray.push(highScore);
+  localStorage.setItem("High-Scores", JSON.stringify(scoreArray));
+  initialsEl.value = "";
+  // formEl.classList.add("hide");
+  scorePage.classList.remove("hide");
+  displayLeader();
 
-// fillInQuestionCard1();
+  //create a var that is an object {2 keys Initials: "x",  Score: "x"}
+  //create highscore array and push object to array.  JSON.stringify and then save to local storage. setItem("key", JSON.stringify(object))
+});
 
-function startQuiz() {
-  fillInQuestionCard1();
-  homePageEl.textContent = "";
-  var timerFun = setInterval(function () {
-    timeRemain--;
-    currentTime.textContent = timeRemain;
-    if (qPosition > 7) {
-      clearInterval(timerFun);
-      console.log(timeRemain);
-    }
-    if (timeRemain <= 0) {
-      clearInterval(timerFun);
-      homePageEl.textContent = "GAME OVER!";
-      var retryBtn = document.createElement("button");
-      retryBtn.textContent = "Try Again!";
-      homePageEl.appendChild(retryBtn);
-      retryBtn.addEventListener("click", function () {
-        timeRemain = 60;
-        qPosition = 0;
-        startQuiz();
-      });
-    }
-  }, 1000);
+function displayLeader() {
+  var scoreDisplay = JSON.parse(localStorage.getItem("High-Scores"));
+  displayScore.textContent = "";
+  var retryBtn = document.createElement("button");
+  retryBtn.textContent = "Try Again!";
+  homePageEl.appendChild(retryBtn);
+  retryBtn.addEventListener("click", function () {
+    timeRemain = 60;
+    qPosition = 0;
+    startQuiz();
+    displayScore.classList.add("hide");
+    formEl.classList.add("hide");
+    questionCardEl.classList.remove("hide");
+  });
+  for (i = 0; i < scoreDisplay.length; i++) {
+    var listItem = document.createElement("li");
+    listItem.textContent =
+      scoreDisplay[i].Initials + ":" + scoreDisplay[i].Score;
+    displayScore.appendChild(listItem);
+  }
 }

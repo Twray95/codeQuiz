@@ -35,13 +35,15 @@
         </div>
       </section>
       <section id="form" class="hide">
-        <form action="">
+        <form action="" id="formContent">
           <label for="initials">Initials Here:</label>
           <input type="text" id="initials" name="initials" />
-          <input type="submit" value="Save High Score!" />
+          <input id="submitBtn" type="submit" value="Save High Score!" />
         </form>
       </section>
-      <section id="highScores" class="hide"></section>
+      <section id="highScores" class="hide">
+        <ul id="leaderboard"></ul>
+      </section>
     </main>
     <script src="./assets/js/script.js"></script>
   </body>
